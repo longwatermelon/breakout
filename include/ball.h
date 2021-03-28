@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "graphics.h"
 #include "paddle.h"
+#include "brick.h"
 
 
 class Ball
@@ -10,11 +11,33 @@ public:
 	Ball(float x, float y, const vec2d& vec)
 		: x(x), y(y), vec(vec) {}
 
-	void move(Paddle& paddle);
+	void move(Paddle& paddle, std::vector<Brick*>& bricks);
 
 	void bounce(Direction dir);
 	
-	void collides_paddle(Paddle& paddle);
+	template <typename T>
+	void collides(T& object)
+	{
+		std::array<float, 4> dpad = object.get_dimensions();
+		float px = dpad[0];
+		float py = dpad[1];
+		float pw = dpad[2];
+		float ph = dpad[3];
+
+		if (within_x(px, pw) && within_y(py, ph))
+		{
+			if ((x - radius) < (px + pw) && (x + radius) > (px + pw)) bounce(Direction::RIGHT);
+			if ((x + radius) > px && (x - radius) < px) bounce(Direction::LEFT);
+			if ((y - radius) < (py + ph) && (y + radius) > (py + ph)) bounce(Direction::UP);
+			if ((y + radius) > py && (y - radius) < py) bounce(Direction::DOWN);
+
+			if constexpr (std::is_same_v<T, Brick>)
+			{
+				object.hit();
+			}
+		}
+	}
+
 	bool within_x(float px, float pw);
 	bool within_y(float py, float ph);
 

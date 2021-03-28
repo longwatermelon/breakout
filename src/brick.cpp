@@ -4,7 +4,8 @@
 void Brick::hit()
 {
 	--resistance;
-	col = colors[resistance];
+	if (resistance - 1 >= 0)
+		col = colors[resistance - 1];
 }
 
 

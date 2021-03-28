@@ -1,8 +1,9 @@
 #include "../include/ball.h"
 #include <cmath>
+#include <vector>
 
 
-void Ball::move(Paddle& paddle)
+void Ball::move(Paddle& paddle, std::vector<Brick*>& bricks)
 {
 	x += vec.x;
 	y += vec.y;
@@ -12,7 +13,12 @@ void Ball::move(Paddle& paddle)
 	if (y - radius <= 0) bounce(Direction::DOWN);
 	if (y + radius >= SCREEN_H) bounce(Direction::UP);
 
-	collides_paddle(paddle);
+	collides(paddle);
+
+	for (auto ptr : bricks)
+	{
+		collides(*ptr);
+	}
 }
 
 
@@ -24,24 +30,6 @@ void Ball::bounce(Direction dir)
 	case Direction::RIGHT: vec.x *= -1; break;
 	case Direction::UP:
 	case Direction::DOWN: vec.y *= -1; break;
-	}
-}
-
-
-void Ball::collides_paddle(Paddle& paddle)
-{
-	std::array<float, 4> dpad = paddle.get_dimensions();
-	float px = dpad[0];
-	float py = dpad[1];
-	float pw = dpad[2];
-	float ph = dpad[3];
-
-	if (within_x(px, pw) && within_y(py, ph))
-	{
-		if ((x - radius) < (px + pw) && (x + radius) > (px + pw)) bounce(Direction::RIGHT);
-		if ((x + radius) > px && (x - radius) < px) bounce(Direction::LEFT);
-		if ((y - radius) < (py + ph) && (y + radius) > (py + ph)) bounce(Direction::UP);
-		if ((y + radius) > py && (y - radius) < py) bounce(Direction::DOWN);
 	}
 }
 

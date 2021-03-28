@@ -10,7 +10,7 @@ int main(int argc, char** argv)
 	Paddle paddle(400, 800, 150, 10);
 
 	std::vector<Brick*> bricks;
-	bricks.emplace_back(new Brick(100, 100, 40, 20));
+	bricks.emplace_back(new Brick(100, 100, 40, 15));
 
 	bool running = true;
 	SDL_Event evt;
@@ -27,15 +27,21 @@ int main(int argc, char** argv)
 
 		SDL_RenderClear(gfx->rend);
 
-		ball.move(paddle);
+		ball.move(paddle, bricks);
 		ball.render(gfx);
 
 		paddle.move();
 		paddle.render(gfx);
 
-		for (auto ptr : bricks)
+		for (int i = 0; i < bricks.size(); ++i)
 		{
-			ptr->render(gfx);
+			bricks[i]->render(gfx);
+
+			if (bricks[i]->is_dead())
+			{
+				delete bricks[i];
+				bricks.erase(bricks.begin() + i);
+			}
 		}
 
 		SDL_RenderPresent(gfx->rend);

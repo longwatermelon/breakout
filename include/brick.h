@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "utils.h"
 #include <vector>
+#include <array>
 
 
 class Brick
@@ -18,6 +19,8 @@ public:
 	bool is_dead();
 
 	void render(Graphics* gfx);
+
+	std::array<float, 4> get_dimensions() { return { x, y, w, h }; }
 
 private:
 	float x{ 0.f }, y{ 0.f }, w{ 0.f }, h{ 0.f };
