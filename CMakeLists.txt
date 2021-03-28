@@ -5,10 +5,13 @@ project(breakout)
 add_executable(breakout
   src/main.cpp
   src/ball.cpp
+  src/paddle.cpp
+  src/brick.cpp
   include/ball.h
   include/graphics.h
   include/utils.h
   include/paddle.h
+  include/brick.h
 )
 
 find_library(SDL2_LIB
