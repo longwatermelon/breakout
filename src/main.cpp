@@ -7,17 +7,17 @@ std::vector<Particle> particles;
 int main(int argc, char** argv)
 {
 	Graphics* gfx = new Graphics;
-	Ball ball(500, 500, { 5.f, 8.3f });
+	Ball ball(500, 500, { 5.f, -8.3f });
 	Paddle paddle(400, 800, 150, 10);
 
-	std::vector<Brick*> bricks;
+	std::vector<Brick> bricks;
 	
 
 	for (int y = 120; y < 120 + 15 * 7; y += 15)
 	{
 		for (int x = 165; x < 165 + 40 * 15; x += 40)
 		{
-			bricks.emplace_back(new Brick(x, y, 40, 15));
+			bricks.emplace_back(Brick(x, y, 40, 15));
 		}
 	}
 
@@ -44,11 +44,10 @@ int main(int argc, char** argv)
 
 		for (int i = 0; i < bricks.size(); ++i)
 		{
-			bricks[i]->render(gfx);
+			bricks[i].render(gfx);
 
-			if (bricks[i]->is_dead())
+			if (bricks[i].is_dead())
 			{
-				delete bricks[i];
 				bricks.erase(bricks.begin() + i);
 			}
 		}

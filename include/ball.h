@@ -11,7 +11,7 @@ public:
 	Ball(float x, float y, const vec2d& vec)
 		: x(x), y(y), vec(vec) {}
 
-	void move(Paddle& paddle, std::vector<Brick*>& bricks);
+	void move(Paddle& paddle, std::vector<Brick>& bricks);
 
 	void bounce(Direction dir);
 	

@@ -3,7 +3,7 @@
 #include <vector>
 
 
-void Ball::move(Paddle& paddle, std::vector<Brick*>& bricks)
+void Ball::move(Paddle& paddle, std::vector<Brick>& bricks)
 {
 	x += vec.x;
 	y += vec.y;
@@ -15,9 +15,9 @@ void Ball::move(Paddle& paddle, std::vector<Brick*>& bricks)
 
 	collides(paddle);
 
-	for (auto ptr : bricks)
+	for (auto& b : bricks)
 	{
-		collides(*ptr);
+		collides(b);
 	}
 }
 
