@@ -10,7 +10,7 @@ void Brick::hit()
 	{
 		for (int ix = (int)x; ix < (int)(x + w); ++ix)
 		{
-			particles.emplace_back(Particle(ix, iy, { random_float(-0.4f, 0.4f), random_float(-1.f, 1.f) }, col));
+			particles.emplace_back(Particle(ix, iy, { random_float(-0.1f, 0.1f), random_float(-0.5f, 0.5f) }, col));
 		}
 	}
 

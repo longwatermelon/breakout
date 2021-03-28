@@ -8,9 +8,12 @@ int main(int argc, char** argv)
 {
 	Graphics* gfx = new Graphics;
 	Ball ball(500, 500, { 5.f, -8.3f });
-	Paddle paddle(400, 800, 150, 10);
+	Paddle paddle(400, 800, 75, 15);
 
 	std::vector<Brick> bricks;
+	std::vector<Ball> balls;
+
+	balls.emplace_back(Ball(500, 500, { 5.f, -8.3f }));
 	
 
 	for (int y = 120; y < 120 + 15 * 7; y += 15)
@@ -31,13 +34,23 @@ int main(int argc, char** argv)
 			switch (evt.type)
 			{
 			case SDL_QUIT: running = false; break;
+			case SDL_KEYDOWN:
+			{
+				switch (evt.key.keysym.sym)
+				{
+				case SDLK_1: balls.emplace_back(Ball(500, 500, { random_float(-10.f, 10.f), random_float(-10.f, 10.f) }));
+				}
+			}
 			}
 		}
 
 		SDL_RenderClear(gfx->rend);
 
-		ball.move(paddle, bricks);
-		ball.render(gfx);
+		for (auto& b : balls)
+		{
+			b.move(paddle, bricks);
+			b.render(gfx);
+		}
 
 		paddle.move();
 		paddle.render(gfx);

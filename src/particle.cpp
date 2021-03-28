@@ -5,7 +5,7 @@ void Particle::move()
 {
 	x += vec.x;
 	y += vec.y;
-	vec.y += 0.4f;
+	vec.y += 0.1f;
 }
 
 
