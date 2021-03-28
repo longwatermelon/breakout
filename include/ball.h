@@ -1,6 +1,7 @@
 #pragma once
 #include "utils.h"
 #include "graphics.h"
+#include "paddle.h"
 
 
 class Ball
@@ -9,9 +10,13 @@ public:
 	Ball(float x, float y, const vec2d& vec)
 		: x(x), y(y), vec(vec) {}
 
-	void move();
+	void move(Paddle& paddle);
 
-	void bounds_bounce(Direction dir);
+	void bounce(Direction dir);
+	
+	void collides_paddle(Paddle& paddle);
+	bool within_x(float px, float pw);
+	bool within_y(float py, float ph);
 
 	void render(Graphics* gfx);
 

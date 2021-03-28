@@ -2,6 +2,7 @@
 #include "graphics.h"
 #include "utils.h"
 #include <Windows.h>
+#include <array>
 
 
 class Paddle
@@ -31,6 +32,9 @@ public:
 		SDL_RenderFillRect(gfx->rend, &rect);
 		SDL_SetRenderDrawColor(gfx->rend, 0, 0, 0, 255);
 	}
+
+
+	std::array<float, 4> get_dimensions() { return { x, y, w, h }; }
 
 private:
 	float x{ 0.f }, y{ 0.f }, w{ 0.f }, h{ 0.f };

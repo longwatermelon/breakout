@@ -2,19 +2,21 @@
 #include <cmath>
 
 
-void Ball::move()
+void Ball::move(Paddle& paddle)
 {
 	x += vec.x;
 	y += vec.y;
 
-	if (x - radius <= 0) bounds_bounce(Direction::LEFT);
-	if (x + radius >= SCREEN_W) bounds_bounce(Direction::RIGHT);
-	if (y - radius <= 0) bounds_bounce(Direction::UP);
-	if (y + radius >= SCREEN_H) bounds_bounce(Direction::DOWN);
+	if (x - radius <= 0) bounce(Direction::RIGHT);
+	if (x + radius >= SCREEN_W) bounce(Direction::LEFT);
+	if (y - radius <= 0) bounce(Direction::DOWN);
+	if (y + radius >= SCREEN_H) bounce(Direction::UP);
+
+	collides_paddle(paddle);
 }
 
 
-void Ball::bounds_bounce(Direction dir)
+void Ball::bounce(Direction dir)
 {
 	switch (dir)
 	{
@@ -23,6 +25,36 @@ void Ball::bounds_bounce(Direction dir)
 	case Direction::UP:
 	case Direction::DOWN: vec.y *= -1; break;
 	}
+}
+
+
+void Ball::collides_paddle(Paddle& paddle)
+{
+	std::array<float, 4> dpad = paddle.get_dimensions();
+	float px = dpad[0];
+	float py = dpad[1];
+	float pw = dpad[2];
+	float ph = dpad[3];
+
+	if (within_x(px, pw) && within_y(py, ph))
+	{
+		if ((x - radius) < (px + pw) && (x + radius) > (px + pw)) bounce(Direction::RIGHT);
+		if ((x + radius) > px && (x - radius) < px) bounce(Direction::LEFT);
+		if ((y - radius) < (py + ph) && (y + radius) > (py + ph)) bounce(Direction::UP);
+		if ((y + radius) > py && (y - radius) < py) bounce(Direction::DOWN);
+	}
+}
+
+
+bool Ball::within_x(float px, float pw)
+{
+	return ((x - radius) < (px + pw) && (x + radius) > px);
+}
+
+
+bool Ball::within_y(float py, float ph)
+{
+	return ((y - radius) < (py + ph) && (y + radius) > py);
 }
 
 

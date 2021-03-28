@@ -24,7 +24,7 @@ int main(int argc, char** argv)
 
 		SDL_RenderClear(gfx->rend);
 
-		ball.move();
+		ball.move(paddle);
 		ball.render(gfx);
 
 		paddle.move();
