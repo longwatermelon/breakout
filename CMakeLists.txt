@@ -8,6 +8,7 @@ add_executable(breakout
   include/ball.h
   include/graphics.h
   include/utils.h
+  include/paddle.h
 )
 
 find_library(SDL2_LIB

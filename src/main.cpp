@@ -1,11 +1,13 @@
 #include "../include/graphics.h"
 #include "../include/ball.h"
+#include "../include/paddle.h"
 
 
 int main(int argc, char** argv)
 {
 	Graphics* gfx = new Graphics;
-	Ball ball(500, 500, { 2.5f, 3.8f });
+	Ball ball(500, 500, { 7.f, 8.3f });
+	Paddle paddle(400, 800, 150, 10);
 
 	bool running = true;
 	SDL_Event evt;
@@ -24,6 +26,9 @@ int main(int argc, char** argv)
 
 		ball.move();
 		ball.render(gfx);
+
+		paddle.move();
+		paddle.render(gfx);
 
 		SDL_RenderPresent(gfx->rend);
 	}

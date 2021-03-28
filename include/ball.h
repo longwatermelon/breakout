@@ -17,7 +17,7 @@ public:
 
 private:
 	float x{ 0.f }, y{ 0.f };
-	float radius{ 20.f };
+	float radius{ 10.f };
 
 	vec2d vec{ 0.f, 0.f };
 };
