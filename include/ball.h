@@ -24,35 +24,57 @@ public:
 		float pw = dpad[2];
 		float ph = dpad[3];
 
-		if (within_x(px, pw) && within_y(py, ph))
+		bool hit = false;
+
+		if ((x + radius + vec.x) >= px && (x + radius) < px && within_y(py, ph))
 		{
-			if ((y - radius) < (py + ph) && (y + radius) > (py + ph))
-			{
-				bounce(Direction::UP);
-				y += ((py + ph) - (y - radius)) + 1;
-			}
-
-			if ((y + radius) > py && (y - radius) < py)
-			{
-				bounce(Direction::DOWN);
-				y += (py - (y + radius)) - 1;
-			}
-
-			if ((x - radius) < (px + pw) && (x + radius) > (px + pw))
-			{
-				bounce(Direction::RIGHT);
-				x += ((px + pw) - (x - radius)) + 1;
-			}
-
-			if ((x + radius) > px && (x - radius) < px)
-			{
-				bounce(Direction::LEFT);
-				x += (px - (x + radius)) - 1;
-			}		
+			x += px - (x + radius + vec.x) - 1;
+			bounce(Direction::LEFT);
 
 			if constexpr (std::is_same_v<T, Brick>)
 			{
+				if (!hit)
 				object.hit();
+				hit = true;
+			}
+		}
+
+		if ((x - radius + vec.x) <= (px + pw) && (x - radius) > (px + pw) && within_y(py, ph))
+		{
+			x += (px + pw) - (x - radius + vec.x) + 1;
+			bounce(Direction::RIGHT);
+
+			if constexpr (std::is_same_v<T, Brick>)
+			{
+				if (!hit)
+				object.hit();
+				hit = true;
+			}
+		}
+
+		if ((y + radius + vec.y) >= py && (y + radius) < py && within_x(px, pw))
+		{
+			y += py - (y + radius + vec.y) - 1;
+			bounce(Direction::UP);
+
+			if constexpr (std::is_same_v<T, Brick>)
+			{
+				if (!hit)
+				object.hit();
+				hit = true;
+			}
+		}
+
+		if ((y - radius + vec.y) <= (py + ph) && (y - radius) > (py + ph) && within_x(px, pw))
+		{
+			y += (py + ph) - (y - radius + vec.y) + 1;
+			bounce(Direction::DOWN);
+
+			if constexpr (std::is_same_v<T, Brick>)
+			{
+				if (!hit)
+				object.hit();
+				hit = true;
 			}
 		}
 	}
