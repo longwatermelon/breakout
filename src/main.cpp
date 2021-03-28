@@ -6,11 +6,18 @@
 int main(int argc, char** argv)
 {
 	Graphics* gfx = new Graphics;
-	Ball ball(500, 500, { 7.f, 8.3f });
+	Ball ball(500, 500, { 3.f, 8.3f });
 	Paddle paddle(400, 800, 150, 10);
 
 	std::vector<Brick*> bricks;
-	bricks.emplace_back(new Brick(100, 100, 40, 15));
+
+	for (int y = 60; y < 60 + 15 * 7; y += 15)
+	{
+		for (int x = 60; x < 60 + 40 * 10; x += 40)
+		{
+			bricks.emplace_back(new Brick(x, y, 40, 15));
+		}
+	}
 
 	bool running = true;
 	SDL_Event evt;
