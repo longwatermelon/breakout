@@ -22,7 +22,7 @@ public:
 
 private:
 	float x{ 0.f }, y{ 0.f }, w{ 0.f }, h{ 0.f };
-	float speed{ 5.f };
+	float speed{ 10.f };
 
 	SDL_Rect rect;
 	SDL_Color color = { 255, 0, 100 };
