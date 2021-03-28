@@ -26,10 +26,29 @@ public:
 
 		if (within_x(px, pw) && within_y(py, ph))
 		{
-			if ((x - radius) < (px + pw) && (x + radius) > (px + pw)) bounce(Direction::RIGHT);
-			if ((x + radius) > px && (x - radius) < px) bounce(Direction::LEFT);
-			if ((y - radius) < (py + ph) && (y + radius) > (py + ph)) bounce(Direction::UP);
-			if ((y + radius) > py && (y - radius) < py) bounce(Direction::DOWN);
+			if ((y - radius) < (py + ph) && (y + radius) > (py + ph))
+			{
+				bounce(Direction::UP);
+				y += ((py + ph) - (y - radius)) + 1;
+			}
+
+			if ((y + radius) > py && (y - radius) < py)
+			{
+				bounce(Direction::DOWN);
+				y += (py - (y + radius)) - 1;
+			}
+
+			if ((x - radius) < (px + pw) && (x + radius) > (px + pw))
+			{
+				bounce(Direction::RIGHT);
+				x += ((px + pw) - (x - radius)) + 1;
+			}
+
+			if ((x + radius) > px && (x - radius) < px)
+			{
+				bounce(Direction::LEFT);
+				x += (px - (x + radius)) - 1;
+			}		
 
 			if constexpr (std::is_same_v<T, Brick>)
 			{

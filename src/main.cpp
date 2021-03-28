@@ -13,7 +13,7 @@ int main(int argc, char** argv)
 
 	for (int y = 60; y < 60 + 15 * 7; y += 15)
 	{
-		for (int x = 60; x < 60 + 40 * 10; x += 40)
+		for (int x = 100; x < 60 + 40 * 10; x += 40)
 		{
 			bricks.emplace_back(new Brick(x, y, 40, 15));
 		}
