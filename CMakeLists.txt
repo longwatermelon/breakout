@@ -7,11 +7,13 @@ add_executable(breakout
   src/ball.cpp
   src/paddle.cpp
   src/brick.cpp
+  src/particle.cpp
   include/ball.h
   include/graphics.h
   include/utils.h
   include/paddle.h
   include/brick.h
+  include/particle.h
 )
 
 find_library(SDL2_LIB

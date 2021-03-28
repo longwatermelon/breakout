@@ -2,6 +2,7 @@
 #include "../include/paddle.h"
 #include "../include/brick.h"
 
+std::vector<Particle> particles;
 
 int main(int argc, char** argv)
 {
@@ -10,6 +11,7 @@ int main(int argc, char** argv)
 	Paddle paddle(400, 800, 150, 10);
 
 	std::vector<Brick*> bricks;
+	
 
 	for (int y = 120; y < 120 + 15 * 7; y += 15)
 	{
@@ -48,6 +50,17 @@ int main(int argc, char** argv)
 			{
 				delete bricks[i];
 				bricks.erase(bricks.begin() + i);
+			}
+		}
+
+		for (int i = 0; i < particles.size(); ++i)
+		{
+			particles[i].render(gfx);
+			particles[i].move();
+
+			if (particles[i].out_of_bounds())
+			{
+				particles.erase(particles.begin() + i);
 			}
 		}
 

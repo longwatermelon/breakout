@@ -1,6 +1,7 @@
 #pragma once
 #include "graphics.h"
 #include "utils.h"
+#include "particle.h"
 #include <vector>
 #include <array>
 
